@@ -1,0 +1,23 @@
+参数：
+learning_rate = 0.1
+final_lr = 0.01
+n_episodes = 100000
+start_epsilon = 1
+epsilon_decay = start_epsilon / (n_episodes / 2)
+lr_decay = learning_rate/(n_episodes/2)
+final_epsilon = 0.1
+discount_factor = 0.95
+
+此时设置lr=0.1的效果最好，lr从0.1递减至0.01效果其次，lr=0.01效果最差
+共同点是都在约450000时开始缓慢上升，450000前快速上升，原理未知
+猜测为epsilon在中间时刻变为0.1导致的，应当适当调高epsilon
+
+将epsilon调整为一直减少，效果变好了，见图epsilon，epsilon应为一个关于episode的函数
+
+增大epsilon，效果变差，最终段方差变大，猜测epsilon=0.1较为合适，最后一段需要适当收敛，保守
+
+尝试增大训练次数，出门散个步
+
+训练1000000次 效果很好，杆子只会出屏幕不会倒下了，效果喜人，大力出奇迹
+
+明天加上一个扣分的函数f（坐标)
