@@ -22,6 +22,12 @@ def get_moving_avgs(arr, window, convolution_mode):
         mode=convolution_mode
     ) / window
 
+def gauss(x, mu, sigma):
+    return np.exp((-1)*((x-mu)**2/(2*sigma**2))) / np.sqrt(2*np.pi*sigma**2)
+
+def get_reward(observation):
+    return 3*gauss(observation[0],0,1.6)
+
 def get_agent():
     env = gym.make('CartPole-v1')
     env = gym.wrappers.RecordEpisodeStatistics(env, buffer_length=n_episodes)
@@ -40,6 +46,7 @@ def get_agent():
         while not done:
             action = agent.get_action(obs)
             next_obs, reward, terminated, truncated, info = env.step(action)
+            reward += get_reward(obs)
             agent.update(obs, action, reward, terminated, next_obs)
             done = terminated or truncated
             obs = next_obs
