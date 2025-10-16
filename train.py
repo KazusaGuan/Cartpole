@@ -26,7 +26,7 @@ def gauss(x, mu, sigma):
     return np.exp((-1)*((x-mu)**2/(2*sigma**2))) / np.sqrt(2*np.pi*sigma**2)
 
 def get_reward(observation):
-    return gauss(observation[0],0,1.6)
+    return gauss(observation[0],0,1.6)+gauss(observation[1],0,5)
 
 def get_agent():
     env = gym.make('CartPole-v1')
